@@ -213,11 +213,11 @@ for fold in range(int(CFG['fold_num'])):
         {"params": [p for n, p in model.named_parameters() if any(nd in n for nd in new_layer)], }
     ]
 
-    optimizer = torch.optim.Adam(optimizer_grouped_parameters, lr=CFG['lr'], betas=(0.9, 0.98), eps=1e-6)
-    # optimizer = AdamW(optimizer_grouped_parameters, lr=CFG['lr'], weight_decay=CFG['weight_decay'])  # AdamW优化器
+    # optimizer = torch.optim.Adam(optimizer_grouped_parameters, lr=CFG['lr'], betas=(0.9, 0.98), eps=1e-6)
+    optimizer = AdamW(optimizer_grouped_parameters, lr=CFG['lr'], weight_decay=CFG['weight_decay'])  # AdamW优化器
     criterion = nn.CrossEntropyLoss()
-    # scheduler = get_cosine_schedule_with_warmup(optimizer, len(train_loader) // CFG['accum_iter'],
-    #                                             CFG['epochs'] * len(train_loader) // CFG['accum_iter'])
+    scheduler = get_cosine_schedule_with_warmup(optimizer, len(train_loader) // CFG['accum_iter'],
+                                                CFG['epochs'] * len(train_loader) // CFG['accum_iter'])
     # get_cosine_schedule_with_warmup策略，学习率先warmup一个epoch，然后cos式下降
 
     for epoch in range(CFG['epochs']):
