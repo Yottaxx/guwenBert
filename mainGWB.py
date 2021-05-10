@@ -23,7 +23,7 @@ CFG = {  # 训练的参数配置
     'epochs': 10,
     'train_bs': 4,
     'valid_bs': 4,
-    'lr': 2e-5,
+    'lr': 5e-6,
     'lrSelf': 1e-4,
     'num_workers': 16,
     'accum_iter': 4,  #
